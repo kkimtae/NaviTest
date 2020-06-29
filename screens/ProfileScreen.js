@@ -5,8 +5,8 @@ import DropDownPicker from "react-native-dropdown-picker";
 
 function ProfileScreen({ navigation }) {
   return (
-    <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+    <View style={styles.defaultStyle}>
+      <View style={styles.defaultStyle}>
         <DropDownPicker
           items={districtList}
           containerStyle={{
@@ -29,22 +29,13 @@ function ProfileScreen({ navigation }) {
           activeLabelStyle={{ color: "red" }}
         />
       </View>
-      <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
+      <View style={styles.defaultStyle}>
         <TouchableOpacity
           activeOpacity={0.6}
           onPress={() => navigation.navigate("Modal")}
-          style={{
-            flex: 1,
-            backgroundColor: "#023e71",
-            justifyContent: "center",
-            alignItems: "center",
-            marginBottom: 10,
-            borderRadius: 5,
-            maxHeight: 40,
-            width: 200,
-          }}
+          style={styles.buttonStyle}
         >
-          <Text style={{ fontSize: 20, color: "white" }}>
+          <Text style={{ fontSize: 25, color: "white" }}>
             Open Modal Screen
           </Text>
         </TouchableOpacity>
@@ -82,3 +73,21 @@ const districtList = [
   { key: "111273", value: "111273", label: "송파구" },
   { key: "111274", value: "111274", label: "강동구" },
 ];
+
+const styles = StyleSheet.create({
+  defaultStyle: {
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonStyle: {
+    flex: 1,
+    backgroundColor: "#023e71",
+    justifyContent: "center",
+    alignItems: "center",
+    marginBottom: 10,
+    borderRadius: 5,
+    maxHeight: 40,
+    width: 200,
+  },
+});
