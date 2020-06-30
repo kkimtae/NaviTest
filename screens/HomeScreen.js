@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import axios from "axios";
-import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import moment from "moment";
 
 const seoulApiKey = "56566d4f7a6b6b69333572706d676d";
 
@@ -33,6 +34,8 @@ function HomeScreen({ navigation, route }) {
             미세먼지 : {airData.PM25}
             {"\n"}
             대기질상태 : {airData.GRADE}
+            {"\n"}
+            측정시간 : {airData.MSRDATE.substr(8, 2)}시
           </Text>
         </View>
       );
