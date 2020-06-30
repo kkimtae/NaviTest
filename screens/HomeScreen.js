@@ -1,20 +1,46 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
-import { View, Text, TouchableOpacity, StyleSheet } from "react-native";
+import { View, Text, TouchableOpacity, StyleSheet, Alert } from "react-native";
 
 const seoulApiKey = "56566d4f7a6b6b69333572706d676d";
 
-async function CheckNanoDust() {
-  const {
-    data: {
-      ListAirQualityByDistrictService: { row },
-    },
-  } = await axios.get(
-    `http://openapi.seoul.go.kr:8088/${seoulApiKey}/json/ListAirQualityByDistrictService/1/50`
-  );
-}
-
 function HomeScreen({ navigation, route }) {
+  const [airData, setAirData] = useState({});
+
+  async function CheckNanoDust(distCode) {
+    if (distCode != undefined && distCode.length > 0 && distCode !== null) {
+      const {
+        data: {
+          ListAirQualityByDistrictService: { row },
+        },
+      } = await axios.get(
+        `http://openapi.seoul.go.kr:8088/${seoulApiKey}/json/ListAirQualityByDistrictService/1/25/${distCode}`
+      );
+
+      setAirData(row[0]);
+    }
+  }
+
+  function abc() {
+    if (airData?.PM10) {
+      console.log(airData);
+      return (
+        <View>
+          <Text style={{ fontSize: 20, fontWeight: "bold" }}>
+            {airData.MSRSTENAME}의 대기질 상황{"\n"}
+            초미세먼지 : {airData.PM10}
+            {"\n"}
+            미세먼지 : {airData.PM25}
+            {"\n"}
+            대기질상태 : {airData.GRADE}
+          </Text>
+        </View>
+      );
+    } else {
+      return <></>;
+    }
+  }
+
   return (
     <View style={{ flex: 1, alignItems: "center", justifyContent: "center" }}>
       <Text
@@ -30,7 +56,7 @@ function HomeScreen({ navigation, route }) {
         <Text style={styles.buttonFontStyle}>지역설정</Text>
       </TouchableOpacity>
       <TouchableOpacity
-        onPress={CheckNanoDust}
+        onPress={() => CheckNanoDust(route.params?.selectDistrict.value)}
         activeOpacity={0.6}
         style={styles.buttonStyle}
       >
@@ -38,6 +64,7 @@ function HomeScreen({ navigation, route }) {
           {route.params?.selectDistrict.label}조회
         </Text>
       </TouchableOpacity>
+      <>{abc()}</>
     </View>
   );
 }
