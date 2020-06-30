@@ -1,5 +1,5 @@
 import * as React from "react";
-import { View, Text } from "react-native";
+import { View, Text, StyleSheet } from "react-native";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import DropDownPicker from "react-native-dropdown-picker";
 
@@ -35,7 +35,7 @@ function ProfileScreen({ navigation }) {
           onPress={() => navigation.navigate("Modal")}
           style={styles.buttonStyle}
         >
-          <Text style={{ fontSize: 25, color: "white" }}>
+          <Text style={{ fontSize: 25, color: "white", marginLeft: 10, marginRight: 10 }}>
             Open Modal Screen
           </Text>
         </TouchableOpacity>
@@ -85,9 +85,8 @@ const styles = StyleSheet.create({
     backgroundColor: "#023e71",
     justifyContent: "center",
     alignItems: "center",
-    marginBottom: 10,
     borderRadius: 5,
-    maxHeight: 40,
-    width: 200,
+    maxHeight: 50,
+    width: "auto",
   },
 });
